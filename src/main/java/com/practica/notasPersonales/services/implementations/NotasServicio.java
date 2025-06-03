@@ -29,9 +29,12 @@ public class NotasServicio implements INotasServicio {
 
     @Override
     public Notas editarNota(Notas nota, int NotaId) {
-        Optional<Notas> notaBuscada = notasRepositorio.findById(NotaId);
-        BeanUtils.copyProperties(nota, notaBuscada);
-        Notas notaEditada = notasRepositorio.save(nota);
+        Notas notaBuscada = notasRepositorio.findById(NotaId).orElse(null);
+        Notas notaPorEditar = new Notas();
+        notaPorEditar.setId(notaBuscada.getId());
+        notaPorEditar.setTitle(nota.getTitle());
+        notaPorEditar.setContent(nota.getContent());
+        Notas notaEditada = notasRepositorio.save(notaPorEditar);
         return notaEditada;
     }
 

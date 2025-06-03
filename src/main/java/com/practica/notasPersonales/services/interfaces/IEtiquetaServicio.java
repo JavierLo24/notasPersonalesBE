@@ -13,5 +13,5 @@ public interface IEtiquetaServicio {
 
     public Etiqueta editarEtiqueta(Etiqueta etiqueta, int EtiquetaId);
 
-    public void eliminarNota(int etiquetaId);
+    public void eliminarEtiqueta(int etiquetaId);
 }

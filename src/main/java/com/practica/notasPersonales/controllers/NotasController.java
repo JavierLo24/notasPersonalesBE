@@ -3,11 +3,9 @@ package com.practica.notasPersonales.controllers;
 import com.practica.notasPersonales.entities.Notas;
 import com.practica.notasPersonales.services.interfaces.INotasServicio;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpResponse;
 import java.util.List;
 
 @RestController
@@ -27,8 +25,8 @@ public class NotasController {
         return ResponseEntity.ok(iNotasServicio.crearNota(nota));
     }
 
-    @PutMapping("/editar/{notaid}")
-    public ResponseEntity<Notas> editarNota(@RequestBody Notas nota, @PathVariable("notaId") int notaId){
+    @PutMapping("/editar/{notaId}")
+    public ResponseEntity<Notas> editarNota(@PathVariable Integer notaId, @RequestBody Notas nota){
         return ResponseEntity.ok(iNotasServicio.editarNota(nota, notaId));
     }
 

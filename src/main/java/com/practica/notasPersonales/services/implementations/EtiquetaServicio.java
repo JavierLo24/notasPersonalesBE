@@ -27,14 +27,16 @@ public class EtiquetaServicio implements IEtiquetaServicio {
 
     @Override
     public Etiqueta editarEtiqueta(Etiqueta etiqueta, int etiquetaId) {
-        Optional<Etiqueta> etiquetaBuscada = etiquetaRepositorio.findById(etiquetaId);
-        BeanUtils.copyProperties(etiqueta, etiquetaBuscada);
-        Etiqueta etiquetaEditada = etiquetaRepositorio.save(etiqueta);
+        Etiqueta etiquetaBuscada = etiquetaRepositorio.findById(etiquetaId).orElse(null);
+        Etiqueta etiquetaPorBuscar = new Etiqueta();
+        etiquetaPorBuscar.setId(etiquetaBuscada.getId());
+        etiquetaPorBuscar.setEtiqueta(etiqueta.getEtiqueta());
+        Etiqueta etiquetaEditada = etiquetaRepositorio.save(etiquetaPorBuscar);
         return etiquetaEditada;
     }
 
     @Override
-    public void eliminarNota(int etiquetaId) {
+    public void eliminarEtiqueta(int etiquetaId) {
         etiquetaRepositorio.deleteById(etiquetaId);
     }
 }
