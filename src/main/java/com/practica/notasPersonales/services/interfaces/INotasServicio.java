@@ -10,7 +10,7 @@ public interface INotasServicio {
 
     public Notas crearNota(Notas nota);
 
-    public Notas editarNota(Notas nota);
+    public Notas editarNota(Notas nota, int NotaId);
 
-    public void eliminarNota(int idNota);
+    public void eliminarNota(int NotaId);
 }
