@@ -1,10 +1,11 @@
 package com.practica.notasPersonales.controllers;
 
 import com.practica.notasPersonales.entities.Etiqueta;
-import com.practica.notasPersonales.entities.Notas;
+import com.practica.notasPersonales.http.responses.EtiquetaResponse;
+import com.practica.notasPersonales.http.responses.HttpResponse;
 import com.practica.notasPersonales.services.interfaces.IEtiquetaServicio;
-import com.practica.notasPersonales.services.interfaces.INotasServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,18 +19,19 @@ public class EtiquetaController {
     IEtiquetaServicio iEtiquetaServicio;
 
     @GetMapping()
-    public ResponseEntity<List<Etiqueta>> listarEtiquetas() {
+    public ResponseEntity<List<EtiquetaResponse>> listarEtiquetas() {
         return ResponseEntity.ok(iEtiquetaServicio.listarEtiquetas().stream().toList());
     }
 
     @PostMapping("/crear")
-    public ResponseEntity<Etiqueta> crearEtiqueta(@RequestBody Etiqueta etiqueta){
-        return ResponseEntity.ok(iEtiquetaServicio.crearEtiqueta(etiqueta));
+    public ResponseEntity<HttpResponse> crearEtiqueta(@RequestBody Etiqueta etiqueta) throws RuntimeException{
+        iEtiquetaServicio.crearEtiqueta(etiqueta);
+        return new ResponseEntity<>(new HttpResponse(HttpStatus.OK.value(), "Etiqueta creada correctamente"), HttpStatus.OK);
     }
 
     @PutMapping("/editar/{etiquetaId}")
-    public ResponseEntity<Etiqueta> editarEtiqueta(@PathVariable("etiquetaId") Integer etiquetaId, @RequestBody Etiqueta etiqueta){
-        return ResponseEntity.ok(iEtiquetaServicio.editarEtiqueta(etiqueta, etiquetaId));
+    public ResponseEntity<HttpResponse> editarEtiqueta(@PathVariable("etiquetaId") Integer etiquetaId, @RequestBody Etiqueta etiqueta){
+        return new ResponseEntity<>(new HttpResponse(HttpStatus.OK.value(), "Etiqueta editada correctamente"), HttpStatus.OK);
     }
 
     @DeleteMapping("/eliminar/{etiquetaId}")

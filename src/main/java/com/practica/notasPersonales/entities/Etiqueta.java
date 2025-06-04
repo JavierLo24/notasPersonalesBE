@@ -1,13 +1,13 @@
 package com.practica.notasPersonales.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @Entity
@@ -21,4 +21,7 @@ public class Etiqueta {
     private int id;
 
     private String etiqueta;
+
+    @ManyToMany(mappedBy = "etiquetas") //Es para la relación muchos a muchos sin mas data en la tabla intermedia, salvo los id's
+    private List<Nota> notaList;
 }

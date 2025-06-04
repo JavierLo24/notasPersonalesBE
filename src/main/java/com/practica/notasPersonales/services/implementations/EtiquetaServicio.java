@@ -1,11 +1,13 @@
 package com.practica.notasPersonales.services.implementations;
 
 import com.practica.notasPersonales.entities.Etiqueta;
+import com.practica.notasPersonales.http.responses.EtiquetaResponse;
 import com.practica.notasPersonales.repositories.EtiquetaRepositorio;
 import com.practica.notasPersonales.services.interfaces.IEtiquetaServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -15,14 +17,24 @@ public class EtiquetaServicio implements IEtiquetaServicio {
     EtiquetaRepositorio etiquetaRepositorio;
 
     @Override
-    public List<Etiqueta> listarEtiquetas() {
-        return etiquetaRepositorio.findAll();
+    public List<EtiquetaResponse> listarEtiquetas() {
+        List<Etiqueta> etiquetaList = etiquetaRepositorio.findAll();
+        return etiquetaList.stream().map(x -> EtiquetaResponse.builder()
+                        .id(x.getId())
+                        .etiqueta(x.getEtiqueta())
+                .build())
+                .toList();
     }
 
     @Override
-    public Etiqueta crearEtiqueta(Etiqueta etiqueta) {
-        Etiqueta etiquetaCreada = etiquetaRepositorio.save(etiqueta);
-        return etiquetaCreada;
+    public Etiqueta crearEtiqueta(Etiqueta etiqueta) throws RuntimeException{
+        Etiqueta etiquetaCreada;
+            if(etiquetaRepositorio.findByEtiqueta(etiqueta.getEtiqueta()) == null){
+                etiquetaCreada = etiquetaRepositorio.save(etiqueta);
+                return etiquetaCreada;
+            } else {
+                throw new RuntimeException("Etiqueta registrada anteriormente");
+            }
     }
 
     @Override

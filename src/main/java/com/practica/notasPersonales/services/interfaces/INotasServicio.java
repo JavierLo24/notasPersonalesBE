@@ -1,6 +1,8 @@
 package com.practica.notasPersonales.services.interfaces;
 
-import com.practica.notasPersonales.entities.Notas;
+import com.practica.notasPersonales.entities.Nota;
+import com.practica.notasPersonales.http.requests.NotaRequest;
+import com.practica.notasPersonales.http.responses.NotaResponse;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -8,11 +10,11 @@ import java.util.List;
 @Repository
 public interface INotasServicio {
 
-    public List<Notas> listarNotas();
+    public List<NotaResponse> listarNotas();
 
-    public Notas crearNota(Notas nota);
+    public Nota crearNota(NotaRequest nota);
 
-    public Notas editarNota(Notas nota, int NotaId);
+    public Nota editarNota(NotaRequest nota, int NotaId);
 
     public void eliminarNota(int NotaId);
 }
