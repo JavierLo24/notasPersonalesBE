@@ -12,10 +12,10 @@ import java.util.List;
 public class NotaResponse {
 
     private int id;
-    @JsonProperty("Título")
+    @JsonProperty("titulo")
     private String title;
-    @JsonProperty("Contenido")
+    @JsonProperty("contenido")
     private String content;
-    @JsonProperty("Etiquetas")
+    @JsonProperty("etiquetas")
     private List<EtiquetaResponse> etiqueta;
 }

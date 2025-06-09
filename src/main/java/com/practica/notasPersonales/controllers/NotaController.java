@@ -1,6 +1,5 @@
 package com.practica.notasPersonales.controllers;
 
-import com.practica.notasPersonales.entities.Nota;
 import com.practica.notasPersonales.http.requests.NotaRequest;
 import com.practica.notasPersonales.http.responses.HttpResponse;
 import com.practica.notasPersonales.http.responses.NotaResponse;

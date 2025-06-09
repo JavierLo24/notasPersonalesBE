@@ -9,6 +9,6 @@ import lombok.Data;
 public class EtiquetaResponse {
 
     private int id;
-    @JsonProperty("Etiqueta")
+    @JsonProperty("etiqueta")
     private String etiqueta;
 }
