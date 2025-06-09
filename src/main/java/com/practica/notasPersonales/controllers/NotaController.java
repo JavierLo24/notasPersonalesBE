@@ -23,6 +23,11 @@ public class NotaController {
         return ResponseEntity.ok(iNotasServicio.listarNotas().stream().toList());
     }
 
+    @GetMapping("/{notaId}")
+    public ResponseEntity<NotaResponse> buscarNota(@PathVariable("notaId") int notaId){
+        return ResponseEntity.ok(iNotasServicio.buscarNota(notaId));
+    }
+
     @PostMapping("/crear")
     public ResponseEntity<HttpResponse> crearNota(@RequestBody NotaRequest nota){
         iNotasServicio.crearNota(nota);

@@ -12,6 +12,8 @@ public interface INotasServicio {
 
     public List<NotaResponse> listarNotas();
 
+    public NotaResponse buscarNota(int NotaId);
+
     public Nota crearNota(NotaRequest nota);
 
     public Nota editarNota(NotaRequest nota, int NotaId);

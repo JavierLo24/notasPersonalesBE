@@ -72,4 +72,19 @@ public class NotaServicio implements INotasServicio {
     public void eliminarNota(int NotaId) {
         notaRepositorio.deleteById(NotaId);
     }
+
+    @Override
+    public NotaResponse buscarNota(int NotaId) {
+        Nota notaBuscada = notaRepositorio.findById(NotaId).orElse(null);
+        return NotaResponse.builder().
+                id(notaBuscada.getId()).
+                title(notaBuscada.getTitle()).
+                content(notaBuscada.getContent()).
+                etiqueta(notaBuscada.getEtiquetas().stream().map(x ->
+                        EtiquetaResponse.builder().
+                                etiqueta(x.getEtiqueta()).
+                                build()).
+                        toList()).
+                build();
+    }
 }
