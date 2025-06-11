@@ -1,7 +1,6 @@
 package com.practica.notasPersonales.http.responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.practica.notasPersonales.entities.Etiqueta;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,5 +16,5 @@ public class NotaResponse {
     @JsonProperty("contenido")
     private String content;
     @JsonProperty("etiquetas")
-    private List<EtiquetaResponse> etiqueta;
+    private List<Integer> etiqueta;
 }

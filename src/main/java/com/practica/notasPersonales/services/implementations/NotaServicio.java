@@ -32,9 +32,7 @@ public class NotaServicio implements INotasServicio {
                         title(x.getTitle()).
                         content(x.getContent()).
                         etiqueta(x.getEtiquetas().stream().map(y ->
-                                EtiquetaResponse.builder().
-                                        etiqueta(y.getEtiqueta()).
-                                        build()).
+                                y.getId()).
                                 toList()).
                         build()).
                 toList();
@@ -81,9 +79,7 @@ public class NotaServicio implements INotasServicio {
                 title(notaBuscada.getTitle()).
                 content(notaBuscada.getContent()).
                 etiqueta(notaBuscada.getEtiquetas().stream().map(x ->
-                        EtiquetaResponse.builder().
-                                etiqueta(x.getEtiqueta()).
-                                build()).
+                        x.getId()).
                         toList()).
                 build();
     }
