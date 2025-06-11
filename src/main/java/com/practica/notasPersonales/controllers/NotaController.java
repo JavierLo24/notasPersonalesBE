@@ -35,13 +35,14 @@ public class NotaController {
     }
 
     @PutMapping("/editar/{notaId}")
-    public ResponseEntity<HttpResponse> editarNota(@PathVariable Integer notaId, @RequestBody NotaRequest nota){
+    public ResponseEntity<HttpResponse> editarNota(@PathVariable("notaId") Integer notaId, @RequestBody NotaRequest nota){
+        iNotasServicio.editarNota(nota, notaId);
         return new ResponseEntity<>(new HttpResponse(HttpStatus.OK.value(), "Nota editada correctamente"), HttpStatus.OK);
     }
 
     @DeleteMapping("/eliminar/{notaId}")
-    public ResponseEntity<String> eliminarNota(@PathVariable("notaId") int notaId){
+    public ResponseEntity<HttpResponse> eliminarNota(@PathVariable("notaId") int notaId){
         iNotasServicio.eliminarNota(notaId);
-        return ResponseEntity.ok("Nota Eliminada");
+        return ResponseEntity.ok(new HttpResponse(HttpStatus.OK.value(), "Nota Eliminada"));
     }
 }
