@@ -44,6 +44,9 @@ public class EtiquetaServicio implements IEtiquetaServicio {
     @Override
     public Etiqueta editarEtiqueta(Etiqueta etiqueta, int etiquetaId) {
         Etiqueta etiquetaBuscada = etiquetaRepositorio.findById(etiquetaId).orElse(null);
+        if (etiquetaBuscada == null) {
+            throw new RuntimeException("Etiqueta no encontrada");
+        }
         Etiqueta etiquetaPorBuscar = new Etiqueta();
         etiquetaPorBuscar.setId(etiquetaBuscada.getId());
         etiquetaPorBuscar.setEtiqueta(etiqueta.getEtiqueta());
@@ -61,12 +64,17 @@ public class EtiquetaServicio implements IEtiquetaServicio {
             notaRepositorio.save(nota);
         }
         etiquetaRepositorio.deleteById(etiquetaId);
+        } else {
+            throw new RuntimeException("Etiqueta no encontrada");
         }
     }
 
     @Override
     public EtiquetaResponse buscarEtiqueta(int EtiquetaId) {
         Etiqueta etiquetaBuscada = etiquetaRepositorio.findById(EtiquetaId).orElse(null);
+        if (etiquetaBuscada == null) {
+            throw new RuntimeException("Etiqueta no encontrada");
+        }
         return EtiquetaResponse.builder()
                 .id(etiquetaBuscada.getId())
                 .etiqueta(etiquetaBuscada.getEtiqueta())

@@ -40,6 +40,9 @@ public class NotaServicio implements INotasServicio {
     @Override
     public Nota crearNota(NotaRequest nota) {
         List<Etiqueta> etiquetaList = etiquetaRepository.findAllById(nota.getEtiquetasIds());
+        if (etiquetaList.isEmpty()) {
+            throw new RuntimeException("No se han proporcionado etiquetas válidas");
+        }
         Nota notaCreada = Nota.builder()
                 .title(nota.getTitle())
                 .content(nota.getContent())
@@ -53,7 +56,13 @@ public class NotaServicio implements INotasServicio {
     @Override
     public Nota editarNota(NotaRequest nota, int NotaId) {
         Nota notaBuscada = notaRepositorio.findById(NotaId).orElse(null);
+        if (notaBuscada == null) {
+            throw new RuntimeException("Nota no encontrada");
+        }
         List<Etiqueta> etiquetaList = etiquetaRepository.findAllById(nota.getEtiquetasIds());
+        if (etiquetaList.isEmpty()) {
+            throw new RuntimeException("No se han proporcionado etiquetas válidas");
+        }
         Nota notaEditada = Nota.builder()
                 .id(notaBuscada.getId())
                 .title(nota.getTitle())
@@ -67,12 +76,18 @@ public class NotaServicio implements INotasServicio {
 
     @Override
     public void eliminarNota(int NotaId) {
+        if (!notaRepositorio.existsById(NotaId)) {
+            throw new RuntimeException("Nota no encontrada");
+        }
         notaRepositorio.deleteById(NotaId);
     }
 
     @Override
     public NotaResponse buscarNota(int NotaId) {
         Nota notaBuscada = notaRepositorio.findById(NotaId).orElse(null);
+        if (notaBuscada == null) {
+            throw new RuntimeException("Nota no encontrada");
+        }
         return NotaResponse.builder().
                 id(notaBuscada.getId()).
                 title(notaBuscada.getTitle()).
