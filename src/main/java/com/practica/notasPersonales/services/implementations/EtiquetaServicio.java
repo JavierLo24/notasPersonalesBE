@@ -1,13 +1,14 @@
 package com.practica.notasPersonales.services.implementations;
 
 import com.practica.notasPersonales.entities.Etiqueta;
+import com.practica.notasPersonales.entities.Nota;
 import com.practica.notasPersonales.http.responses.EtiquetaResponse;
 import com.practica.notasPersonales.repositories.EtiquetaRepositorio;
+import com.practica.notasPersonales.repositories.NotaRepositorio;
 import com.practica.notasPersonales.services.interfaces.IEtiquetaServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -15,6 +16,9 @@ public class EtiquetaServicio implements IEtiquetaServicio {
 
     @Autowired
     EtiquetaRepositorio etiquetaRepositorio;
+
+    @Autowired
+    NotaRepositorio notaRepositorio;
 
     @Override
     public List<EtiquetaResponse> listarEtiquetas() {
@@ -49,7 +53,15 @@ public class EtiquetaServicio implements IEtiquetaServicio {
 
     @Override
     public void eliminarEtiqueta(int etiquetaId) {
+        Etiqueta etiqueta = etiquetaRepositorio.findById(etiquetaId).orElse(null);
+    if (etiqueta != null) {
+        List<Nota> notasConEtiqueta = notaRepositorio.findAllByEtiquetasContaining(etiqueta);
+        for (Nota nota : notasConEtiqueta) {
+            nota.getEtiquetas().remove(etiqueta);
+            notaRepositorio.save(nota);
+        }
         etiquetaRepositorio.deleteById(etiquetaId);
+        }
     }
 
     @Override

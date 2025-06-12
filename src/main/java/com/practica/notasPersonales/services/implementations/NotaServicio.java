@@ -3,7 +3,6 @@ package com.practica.notasPersonales.services.implementations;
 import com.practica.notasPersonales.entities.Etiqueta;
 import com.practica.notasPersonales.entities.Nota;
 import com.practica.notasPersonales.http.requests.NotaRequest;
-import com.practica.notasPersonales.http.responses.EtiquetaResponse;
 import com.practica.notasPersonales.http.responses.NotaResponse;
 import com.practica.notasPersonales.repositories.EtiquetaRepositorio;
 import com.practica.notasPersonales.repositories.NotaRepositorio;
