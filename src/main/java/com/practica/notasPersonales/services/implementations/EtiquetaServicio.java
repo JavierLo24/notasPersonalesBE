@@ -51,4 +51,13 @@ public class EtiquetaServicio implements IEtiquetaServicio {
     public void eliminarEtiqueta(int etiquetaId) {
         etiquetaRepositorio.deleteById(etiquetaId);
     }
+
+    @Override
+    public EtiquetaResponse buscarEtiqueta(int EtiquetaId) {
+        Etiqueta etiquetaBuscada = etiquetaRepositorio.findById(EtiquetaId).orElse(null);
+        return EtiquetaResponse.builder()
+                .id(etiquetaBuscada.getId())
+                .etiqueta(etiquetaBuscada.getEtiqueta())
+                .build();
+    }
 }

@@ -23,6 +23,11 @@ public class EtiquetaController {
         return ResponseEntity.ok(iEtiquetaServicio.listarEtiquetas().stream().toList());
     }
 
+    @GetMapping("/{etiquetaId}")
+    public ResponseEntity<EtiquetaResponse> buscarEtiqueta(@PathVariable("etiquetaId") int etiquetaId){
+        return ResponseEntity.ok(iEtiquetaServicio.buscarEtiqueta(etiquetaId));
+    }
+
     @PostMapping("/crear")
     public ResponseEntity<HttpResponse> crearEtiqueta(@RequestBody Etiqueta etiqueta) throws RuntimeException{
         iEtiquetaServicio.crearEtiqueta(etiqueta);
@@ -31,12 +36,13 @@ public class EtiquetaController {
 
     @PutMapping("/editar/{etiquetaId}")
     public ResponseEntity<HttpResponse> editarEtiqueta(@PathVariable("etiquetaId") Integer etiquetaId, @RequestBody Etiqueta etiqueta){
+        iEtiquetaServicio.editarEtiqueta(etiqueta, etiquetaId);
         return new ResponseEntity<>(new HttpResponse(HttpStatus.OK.value(), "Etiqueta editada correctamente"), HttpStatus.OK);
     }
 
     @DeleteMapping("/eliminar/{etiquetaId}")
-    public ResponseEntity<String> eliminarNota(@PathVariable("etiquetaId") int etiquetaId){
+    public ResponseEntity<HttpResponse> eliminarNota(@PathVariable("etiquetaId") int etiquetaId){
         iEtiquetaServicio.eliminarEtiqueta(etiquetaId);
-        return ResponseEntity.ok("Nota Eliminada");
+        return new ResponseEntity<>(new HttpResponse(HttpStatus.OK.value(), "Etiqueta eliminada correctamente"), HttpStatus.OK);
     }
 }

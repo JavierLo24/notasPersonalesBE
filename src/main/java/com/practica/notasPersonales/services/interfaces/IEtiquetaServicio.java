@@ -11,6 +11,8 @@ public interface IEtiquetaServicio {
 
     public List<EtiquetaResponse> listarEtiquetas();
 
+    public EtiquetaResponse buscarEtiqueta(int EtiquetaId);
+
     public Etiqueta crearEtiqueta(Etiqueta etiqueta) throws RuntimeException;
 
     public Etiqueta editarEtiqueta(Etiqueta etiqueta, int EtiquetaId);
